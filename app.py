@@ -47,6 +47,7 @@ def send_message():
                 correct_passkey = Original_passkey  # Change this
                 if passkey == correct_passkey:
                     _ = messages_col.delete_many({})
+                    
         else:
             messages_col.insert_one({
                 'user': user,

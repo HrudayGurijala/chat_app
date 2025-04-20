@@ -14,13 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Generate a new anon ID from a hash key
   const generateAnonId = (hashKey) => {
-    // Simple hash function to generate a numerical string from the key
     let numHash = 0;
     for (let i = 0; i < hashKey.length; i++) {
       numHash = ((numHash << 5) - numHash) + hashKey.charCodeAt(i);
-      numHash = numHash & numHash; // Convert to 32bit integer
+      numHash = numHash & numHash; 
     }
-    // Make sure it's positive and doesn't exceed 5 characters
     numHash = Math.abs(numHash) % 100000;
     return 'anon@' + numHash.toString().padStart(4, '0');
   };
@@ -55,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       // Store current scroll position and check if we're at the bottom
-      const isAtBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 5;
+      const isAtBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop;
       
       // Process new messages if there are any
       if (data.messages && (data.messages.length !== document.querySelectorAll('.message').length)) {
         // Clear all messages but keep the structure
         chatBox.innerHTML = '';
-        
+
         // Add all messages with proper wrapping
         data.messages.forEach(msg => {
           const div = document.createElement('div');
