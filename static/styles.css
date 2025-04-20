@@ -170,7 +170,6 @@ body {
   background: #00ff00;
   margin-left: 2px;
   display: inline-block;
-  animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
