@@ -14,8 +14,6 @@ client = MongoClient(MONGO_URL)
 db = client['chatdb']
 messages_col = db['messages']
 
-print("MONGO CONNECTION STRING: ",client)
-
 # Create TTL index (expire messages after 86400 seconds = 24 hours)
 messages_col.create_index("timestamp", expireAfterSeconds=86400)
 
@@ -27,12 +25,10 @@ def index():
 def send_message():
     data = request.json
     full_msg = data.get('message', '')
-
-    # Split message into user + text (based on format "anon@1234 > message")
     if '>' in full_msg:
         user, msg = map(str.strip, full_msg.split('>', 1))
     else:
-        user, msg = 'anon@0000', full_msg
+        user, msg = 'anon@00000', full_msg
 
     if msg:
         if msg.startswith("remove "):
